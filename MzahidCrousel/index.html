@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;600;700&display=swap" />
+    <style>
+        .item {
+            margin-left: 5px !important;
+        }
+
+        body {
+            font-family: 'Mulish', sans-serif;
+        }
+
+        .testimonials {
+            position: relative;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 10px 10px;
+        }
+
+        .testimonials .title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+            padding: 20px 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .testimonials .title h5 {
+            color: #eb6d2f;
+            line-height: 1.2em;
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: -3px;
+        }
+
+        .testimonials .title h2 {
+            color: #5a3733;
+            line-height: 1.2em;
+            font-weight: 600;
+            font-size: 25px;
+            letter-spacing: -1px;
+            margin: 0;
+        }
+
+        .testimonials .title img {
+            margin-top: -10px;
+        }
+
+        .testimonials .title p {
+            margin: 0 0 10px;
+            color: #5a3733;
+        }
+
+        .testimonials .testi .item {
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+                rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+                rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+            padding: 20px 10px;
+            height: 35vh;
+            margin: 50px;
+            width: 95%;
+            border-radius: 5px;
+        }
+
+        .review {
+            background-color: #f7f7f7;
+            padding: 5px;
+            height: 100px;
+            overflow-y: auto;
+        }
+
+        .testimonials .testi .item .profile {
+            display: flex;
+            padding-left: 15px;
+        }
+
+        .testimonials .testi .item .profile img {
+            border-radius: 100%;
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+        }
+
+        .testimonials .testi .item .profile .information {
+            display: flex;
+            border: 1px solid;
+            gap: 50px;
+            padding-left: 11px;
+            margin-top: 10px;
+            margin-bottom: 13px;
+        }
+
+        .testimonials .testi .item .profile .information .stars i {
+            color: #ffd832;
+        }
+
+        .testimonials .testi .item .profile .information p {
+            font-size: 20px;
+            margin: 0;
+            color: #5a3733;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .testimonials .testi .item .profile .information span {
+            color: #eb6d2f;
+            font-weight: bold;
+            margin-top: -4px;
+            line-height: 1.6em;
+            font-size: 14px;
+        }
+
+        .testimonials .testi .item>p {
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.6em;
+            display: block;
+            z-index: 2;
+            color: #5a3733;
+        }
+
+        .testimonials .testi .item .icon {
+            text-align: center;
+        }
+
+        .testimonials .testi .item .icon i {
+            font-size: 32px;
+            color: #F0AC0E;
+        }
+
+        .testimonial-container {
+            max-width: 1000px;
+            /* Adjust the width as needed */
+            margin: 0 auto;
+        }
+
+        .nameAndMonth {
+            border: 1px solid red;
+            width: auto;
+        }
+
+        .monthsago {
+            font-size: 10px !important;
+            color: #5a3733 !important;
+            margin-top: 5px !important;
+
+        }
+
+        .googleImg {
+            height: 30px !important;
+            width: 30px !important;
+            margin-top: -5px;
+        }
+
+        .review-container {
+            font-family: Arial, sans-serif;
+            position: relative;
+            display: inline-block;
+        }
+
+        .icon-tooltip-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .hover-icon {
+            font-size: 20px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            padding: 5px;
+            color: #333;
+            text-align: center;
+        }
+
+        .hover-tooltip {
+            visibility: hidden;
+            width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 5px;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 120%;
+            /* Position above the icon */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-tooltip-wrapper:hover .hover-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <section class="testimonials">
+        <div class="testimonial-container">
+            <div class="owl-carousel owl-theme testi">
+                <!-- Testimonial 1 -->
+                <div class="item">
+                    <div class="profile">
+                        <img height="100%" width="100%"
+                            src="https://images.unsplash.com/photo-1542190891-2093d38760f2?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="" />
+                        <div class="information">
+                            <div class="nameAndMonth">
+                                <p class="reviewername">Muhammad Ali</p>
+                                <p class="monthsago">5 months ago</p>
+                            </div>
+                            <div>
+                                <img class="googleImg"
+                                    src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star "></i>
+                        <div class="review-container">
+                            <div class="icon-tooltip-wrapper">
+                                <i class="hover-icon">G</i> <!-- Replace with your preferred icon -->
+                                <span class="hover-tooltip">Trustindex verifies that the original source of the review
+                                    is Google.</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <p class="review">
+                        Working with M-Zahid for SEO in Karachi has been a great experience - he's a friendly expert who
+                        seamlessly optimized our website for top Google rankings with his proven strategies and
+                        personable
+                        approach.
+                    </p>
+                    <div class="icon">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="profile">
+                        <img src="https://images.unsplash.com/photo-1521225099409-8e1efc95321d?ixlib=rb-1.2.1&auto=format&fit=crop&h=153&q=80"
+                            alt="" />
+                        <div class="information">
+                            <div>
+                                <p>Furkan Giray</p>
+                                <p class="monthsago">5 months ago</p>
+                            </div>
+                            <div>
+                                <img class="googleImg"
+                                    src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p class="review">
+                        Muhammad Zahid is a top-tier SEO expert who delivers outstanding results. His combination of
+                        technical expertise, strategic thinking, and excellent communication skills makes him an
+                        invaluable
+                        asset to any business looking to enhance its online presence.
+                    </p>
+                    <div class="icon">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+
+                <div class="item">
+                    <div class="profile">
+                        <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjZ8fHBha2lzdGFuaSUyMHByb2ZpbGUlMjBtYW58ZW58MHx8MHx8fDA%3D"
+                            alt="" />
+                        <div class="information">
+                            <div>
+                                <p>M Hasnain</p>
+                                <p class="monthsago">5 months ago</p>
+                            </div>
+                            <div>
+                                <img class="googleImg"
+                                    src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p class="review">
+                        Highly recommend Muhammad Zahid for SEO services! His expertise significantly improved my
+                        website's
+                        search rankings. Muhammad's clear and consistent communication kept me informed throughout the
+                        process. He also offered valuable insights to enhance my website's user experience. If you need
+                        an
+                        SEO expert who delivers results, look no further than Muhammad Zahid!
+                    </p>
+                    <!-- <div class="icon">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </div> -->
+                </div>
+                <div class="item">
+                    <div class="profile">
+                        <img src="https://plus.unsplash.com/premium_photo-1661637752177-e657a9daaf4f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                            alt="" />
+                        <div class="information">
+                            <div>
+                                <p>Zakirya Ali</p>
+                                <p class="monthsago">5 months ago</p>
+                            </div>
+                            <div>
+                                <img class="googleImg"
+                                    src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p class="review">
+                        He knew exactly how to get us to the top of Google searches. He's really friendly and easy to
+                        work
+                        with. If you need help with SEO in Karachi, M-Zahid is the best!
+                    </p>
+                    <div class="icon">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="item">
+                    <div class="profile">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&h=153&q=80"
+                            alt="" />
+                        <div class="information">
+                            <div>
+                                <p>Sophia Lee</p>
+                                <p class="monthsago">5 months ago</p>
+                            </div>
+                            <div>
+                                <img class="googleImg"
+                                    src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <p class="review">
+                        I am amazed by Zahid's ability to quickly diagnose and resolve SEO challenges. Thanks to him,
+                        our
+                        site has reached new heights in rankings.
+                    </p>
+                    <div class="icon">
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script>
+        $(".testi.owl-carousel").owlCarousel({
+            items: 3,
+            margin: 5,
+            lazyLoad: true,
+            dots: true,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                600: {
+                    items: 2,
+                },
+                1000: {
+                    items: 3,
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>

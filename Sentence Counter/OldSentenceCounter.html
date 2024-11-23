@@ -1,0 +1,222 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sentence Counter</title>
+<link
+  href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap"
+  rel="stylesheet"
+/>
+<style>
+  .top-container {
+    font-family: "Quicksand", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+
+  .container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    max-width: 600px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  header {
+    margin-bottom: 20px;
+  }
+
+  main {
+    margin-bottom: 20px;
+  }
+
+  textarea {
+    width: calc(100% - 20px);
+    height: 120px;
+    margin-bottom: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 2px solid grey;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    background-color: #ecf0f1;
+    color: #333;
+  }
+
+  .label {
+    color: black;
+    font-weight: bold;
+    font-size: large;
+  }
+  button {
+    background-color: #e74c3c;
+    color: #fff;
+    padding: 15px 0px;
+    width: 170px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+    margin: 5px;
+  }
+
+  button:hover {
+    background-color: #c0392b;
+  }
+
+  #copyBtn {
+    background-color: #2ecc71;
+  }
+
+  #copyBtn:hover {
+    background-color: #27ae60;
+  }
+
+  #clearBtn {
+    background-color: #3498db;
+  }
+
+  #clearBtn:hover {
+    background-color: #2980b9;
+  }
+  .result-container {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+  }
+  .result {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #dcdedf;
+    width: 170px;
+  }
+  .count {
+    color: black;
+    font-weight: bold;
+  }
+  .buttonss {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* If the screen size is 600px wide or less, hide the element */
+  @media only screen and (max-width: 600px) {
+    .result-container {
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .result {
+      border: 1px solid;
+      padding: 10px 0px 10px 0px;
+      margin-bottom: 5px;
+      border-radius: 10px;
+      width: 80%;
+    }
+    .container {
+      border-radius: 0px;
+      padding: 0px;
+    }
+    button {
+      background-color: #e74c3c;
+      color: #fff;
+      padding: 20px 0px;
+      border: none;
+      border-radius: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background 0.3s ease;
+    }
+    .main-container {
+      border: 1px solid gray;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 10px;
+      background-color: #f7f7f7;
+    }
+    textarea {
+      width: calc(100% - 20px);
+      height: 140px;
+      margin-bottom: 0px;
+    }
+  }
+</style>
+
+<div class="top-container">
+  <div class="container">
+    <header>
+      <h1>Sentence Counter</h1>
+    </header>
+    <main class="main-container">
+      <textarea
+        id="inputText"
+        placeholder="Type or paste your text here..."
+      ></textarea>
+      <div id="results" class="result-container">
+        <div class="result">
+          <span class="label">Sentences</span>
+          <span class="count"></span><br /><span
+            class="count"
+            id="sentenceCount"
+            >0</span
+          >
+        </div>
+        <div class="result">
+          <span class="label">Words</span>
+          <span></span><br /><span class="count" id="wordCount">0</span>
+        </div>
+        <div class="result">
+          <span class="label">Characters</span>
+          <span class="count"></span><br /><span class="count" id="charCount"
+            >0</span
+          >
+        </div>
+      </div>
+      <div class="buttonss">
+        <button onclick="CountText()">Count</button>
+        <button id="copyBtn" onclick="copyToClipboard()">Copy</button>
+        <button id="clearBtn" onclick="clearText()">Clear</button>
+      </div>
+    </main>
+    <script>
+      function CountText() {
+        var inputText = document.getElementById("inputText").value;
+        var sentences = inputText.split(/[.!?]+/).length - 1;
+        var words = inputText
+          .split(/\s+/)
+          .filter((word) => word.length > 0).length;
+        var characters = inputText.replace(/\s/g, "").length;
+
+        document.getElementById("sentenceCount").innerText = sentences;
+        document.getElementById("wordCount").innerText = words;
+        document.getElementById("charCount").innerText = characters;
+      }
+
+      function copyToClipboard() {
+        var results = document.getElementById("results").innerText;
+        navigator.clipboard.writeText(results);
+        alert("Results copied to clipboard! 📋");
+      }
+
+      function clearText() {
+        document.getElementById("inputText").value = "";
+        document.getElementById("sentenceCount").innerText = "0";
+        document.getElementById("wordCount").innerText = "0";
+        document.getElementById("charCount").innerText = "0";
+      }
+    </script>
+  </div>
+</div>

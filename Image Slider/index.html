@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trusted Companies Slider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f9f9f9;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 80%;
+            max-width: 1200px;
+            overflow: hidden;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 10px;
+        }
+
+        .slide {
+            flex: 0 0 25%;
+            /* Show 4 slides on large screens */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide img {
+            max-width: 100%;
+            max-height: 100px;
+            object-fit: contain;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 24px;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        /* Mobile View */
+        @media (max-width: 768px) {
+            .slide {
+                flex: 0 0 100%;
+                /* Show 1 slide on mobile */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider-container">
+        <button class="nav-btn prev-btn" onclick="slideLeft()">&#10094;</button>
+        <div class="slider">
+            <div class="slide"><img
+                    src="https://saadrazadigital.com/wp-content/uploads/2020/07/SR-Digital-Clients-Reviewnama.png"
+                    alt="2"></div>
+            <div class="slide"><img
+                    src="https://saadrazadigital.com/wp-content/uploads/2020/07/SR-Digital-Clients-Reviewnama.png"
+                    alt="3"></div>
+            <div class="slide"><img
+                    src="https://saadrazadigital.com/wp-content/uploads/2020/07/SR-Digital-Clients-Reviewnama.png"
+                    alt="4"></div>
+            <div class="slide"><img
+                    src="https://saadrazadigital.com/wp-content/uploads/2020/07/SR-Digital-Clients-Reviewnama.png"
+                    alt="Company 5"></div>
+        </div>
+        <button class="nav-btn next-btn" onclick="slideRight()">&#10095;</button>
+    </div>
+    <script>
+        const slider = document.querySelector('.slider');
+        let currentIndex = 0;
+
+        function slideLeft() {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = totalSlides - 1; // Go to the last slide if at the beginning
+            }
+
+            updateSlider();
+        }
+
+        function slideRight() {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+
+            if (currentIndex < totalSlides - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Go to the first slide if at the end
+            }
+
+            updateSlider();
+        }
+
+        function updateSlider() {
+            const slideWidth = document.querySelector('.slide').offsetWidth;
+            slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+        }
+
+    </script>
+</body>
+
+</html>

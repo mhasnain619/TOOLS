@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+    <style>
+      .top-container {
+        font-family: "Quicksand", sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+          rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        max-width: 600px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      header {
+        margin-bottom: 20px;
+      }
+
+      main {
+        margin-bottom: 20px;
+      }
+
+      textarea {
+        width: calc(100% - 20px);
+        height: 120px;
+        margin-bottom: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 2px solid grey;
+        border-radius: 10px;
+        font-size: 16px;
+        outline: none;
+        background-color: #ecf0f1;
+        color: #333;
+      }
+
+      .label {
+        color: black;
+        font-weight: bold;
+        font-size: large;
+      }
+
+      button {
+        background-color: #e74c3c;
+        color: #fff;
+        padding: 15px 0px;
+        width: 170px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s ease;
+        margin: 5px;
+      }
+
+      button:hover {
+        background-color: #c0392b;
+      }
+
+      #copyBtn {
+        background-color: #2ecc71;
+      }
+
+      #copyBtn:hover {
+        background-color: #27ae60;
+      }
+
+      #clearBtn {
+        background-color: #3498db;
+      }
+
+      #clearBtn:hover {
+        background-color: #2980b9;
+      }
+
+      .result-container {
+        display: flex;
+        margin-bottom: 10px;
+        justify-content: space-between;
+      }
+
+      .result {
+        border: 1px solid;
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #dcdedf;
+        width: 170px;
+      }
+
+      .count {
+        color: black;
+        font-weight: bold;
+      }
+
+      .buttonss {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .input-file {
+        /* padding: 10px 10px; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 150px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        background-color: #dcdedf;
+        text-align: center;
+      }
+      #myfile {
+        font-size: 18px;
+      }
+      /* If the screen size is 600px wide or less, hide the element */
+      @media only screen and (max-width: 600px) {
+        .result-container {
+          display: flex;
+          flex-direction: column;
+          margin-top: 10px;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .result {
+          border: 1px solid;
+          padding: 10px 0px 10px 0px;
+          margin-bottom: 5px;
+          border-radius: 10px;
+          width: 80%;
+        }
+
+        .container {
+          border-radius: 0px;
+          padding: 0px;
+        }
+
+        button {
+          background-color: #e74c3c;
+          color: #fff;
+          padding: 20px 0px;
+          border: none;
+          border-radius: 10px;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 12px;
+          transition: background 0.3s ease;
+        }
+
+        .main-container {
+          border: 1px solid gray;
+          padding: 15px;
+          margin: 10px;
+          border-radius: 10px;
+          background-color: #f7f7f7;
+        }
+
+        textarea {
+          width: calc(100% - 20px);
+          height: 140px;
+          margin-bottom: 0px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="top-container">
+      <div class="container">
+        <header>
+          <h1>PDF Word Counter</h1>
+        </header>
+        <div class="input-file">
+          <input type="file" id="myfile" name="myfile" />
+        </div>
+        <main class="main-container">
+          <div id="results" class="result-container">
+            <div class="result">
+              <span class="label">Sentences</span>
+              <span class="count"></span><br />
+              <span class="count" id="sentenceCount">0</span>
+            </div>
+            <div class="result">
+              <span class="label">Words</span>
+              <span></span><br /><span class="count" id="wordCount">0</span>
+            </div>
+            <div class="result">
+              <span class="label">Characters</span>
+              <span class="count"></span><br /><span
+                class="count"
+                id="charCount"
+                >0</span
+              >
+            </div>
+          </div>
+          <div class="buttonss">
+            <button id="countText" onclick="countTextFromPdf()">Count</button>
+            <button id="copyBtn" onclick="copyToClipboard()">Copy</button>
+            <button id="clearBtn" onclick="clearText()">Clear</button>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script>
+      var cc;
+      document
+        .getElementById("myfile")
+        .addEventListener("change", handleChange);
+      function handleChange(event) {
+        cc = event.target.files[0];
+      }
+      function countTextFromPdf() {
+        document.getElementById("countText").innerText = "Loading...";
+        if (cc) {
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            const typedarray = new Uint8Array(event.target.result);
+            // Load PDF
+            pdfjsLib
+              .getDocument(typedarray)
+              .promise.then(function (pdf) {
+                // Initialize an empty string to store the text
+                let text = "";
+
+                // Iterate through each page of the PDF
+                for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                  // Fetch the page text content
+                  pdf
+                    .getPage(pageNum)
+                    .then(function (page) {
+                      return page.getTextContent();
+                    })
+                    .then(function (pageText) {
+                      // Extract text from the page content
+                      pageText.items.forEach(function (item) {
+                        text += item.str + " ";
+                      });
+                      // Add a newline character after each page
+                      text += "\n";
+                      // Update the output
+                      let ss = countWordsAndSentences(text);
+
+                      document.getElementById("sentenceCount").innerText =
+                        ss.sentenceCount;
+                      document.getElementById("wordCount").innerText =
+                        ss.wordCount;
+                      document.getElementById("charCount").innerText =
+                        text.length;
+                      document.getElementById("countText").innerText = "Count";
+                    });
+                }
+              })
+              .catch(function (error) {
+                console.error("Error:", error);
+              });
+          };
+          reader.readAsArrayBuffer(cc);
+        }
+      }
+      function countWordsAndSentences(text) {
+        // Counting word characters
+        const words = text.split(/\s+/).filter((word) => word.length > 0);
+        const wordCount = words.length;
+
+        // Counting sentences
+        const sentences = text
+          .split(/[.!?]+/)
+          .filter((sentence) => sentence.trim().length > 0);
+        const sentenceCount = sentences.length;
+
+        return { wordCount, sentenceCount };
+      }
+
+      function copyToClipboard() {
+        var results = document.getElementById("results").innerText;
+        navigator.clipboard.writeText(results);
+        alert("Results copied to clipboard! 📋");
+      }
+
+      function clearText() {
+        // document.getElementById("inputText").value = "";
+        document.getElementById("sentenceCount").innerText = "0";
+        document.getElementById("wordCount").innerText = "0";
+        document.getElementById("charCount").innerText = "0";
+      }
+    </script>
+  </body>
+</html>

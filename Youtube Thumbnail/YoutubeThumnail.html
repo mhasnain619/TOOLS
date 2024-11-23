@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Thumbnail Downloader</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <style>
+      @media only screen and (max-width: 300px) {
+        body {
+          color: yellow;
+        }
+      }
+
+      body,
+      html {
+        height: 100%;
+        display: grid;
+      }
+
+      body {
+        background-image: url("bg.jpg");
+      }
+
+      .main {
+        margin: auto;
+        text-align: center;
+        max-width: 90vw;
+      }
+
+      .center-fit {
+        max-height: 50vh;
+        max-width: 50vw;
+      }
+
+      .buttons button {
+        margin: 0.5em;
+      }
+
+      .buttons {
+        margin: 0.5em;
+      }
+
+      #fullpage {
+        display: none;
+        position: absolute;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-size: contain;
+        background-repeat: no-repeat no-repeat;
+        background-position: center center;
+        background-color: black;
+      }
+
+      footer {
+        margin: 1em;
+      }
+
+      footer img {
+        vertical-align: bottom;
+        transition-duration: 2s;
+        transition-property: transform;
+      }
+
+      footer img:hover,
+      footer a:hover img {
+        transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+      }
+      .headingpo {
+        font-weight: 800;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main fw-light">
+      <header>
+        <h2 class="display-6 lh-1 headingpo">YouTube Thumbnail Downloader</h2>
+      </header>
+      <hr />
+      <label for="url" class="form-label small"
+        >Enter YouTube video URL (supports .be, shorts, embed, with timestamps
+        and other clutter)</label
+      >
+      <input
+        name="url"
+        type="search"
+        id="url"
+        class="form-control fw-light"
+        onfocus="if(this.value == 'https://img.freepik.com/premium-psd/youtube-video-thumbnail-template_892970-5.jpg?w=826') { this.value = ''; }"
+        onblur="if(this.value == '') { this.value = 'https://img.freepik.com/premium-psd/youtube-video-thumbnail-template_892970-5.jpg?w=826'; }"
+        value=""
+        placeholder="Paste Url here"
+      />
+      <div class="buttons">
+        <button class="btn btn-primary fw-light" onclick="dynamicUrl(0)">
+          Get
+        </button>
+        <button class="btn btn-info fw-light" onclick="dynamicUrl(1)">
+          Get Max
+        </button>
+        <button class="btn btn-secondary fw-light" onclick="dynamicUrl(2)">
+          Get Max webp
+        </button>
+        <button class="btn btn-success fw-light" onclick="download()">
+          ⏬ Download
+        </button>
+      </div>
+
+      <img
+        class="center-fit"
+        id="img"
+        onclick="fullPage()"
+        title="Click to zoom in/out"
+        src="https://img.freepik.com/premium-psd/youtube-video-thumbnail-template_892970-5.jpg?w=826"
+      />
+    </div>
+    <div
+      id="fullpage"
+      title="Click to zoom in/out"
+      onclick="this.style.display='none';"
+    ></div>
+
+    <script>
+      function fullPage() {
+        const fullPage = document.querySelector("#fullpage");
+        fullPage.style.backgroundImage =
+          "url(" + document.getElementById("img").src + ")";
+        fullPage.style.display = "block";
+      }
+
+      function dynamicUrl(type) {
+        let url = document.getElementById("url").value;
+        let id = url.match(
+          /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|shorts\/|embed\/|v\/)?)([\w\-]+)(\S+)?$/
+        )[6];
+        let imgUrl;
+        if (type === 1)
+          imgUrl = `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+        else if (type === 2)
+          imgUrl = `https://img.youtube.com/vi_webp/${id}/maxresdefault.webp`;
+        else imgUrl = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+        let img = document.getElementById("img");
+        img.src = imgUrl;
+
+        return imgUrl;
+      }
+
+      function download() {
+        let link = document.createElement("a");
+        link.style.display = "none";
+        link.href = document.getElementById("img").src;
+        link.download = "get-yt-thumb.jpg";
+        link.target = "_blank";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    </script>
+  </body>
+</html>

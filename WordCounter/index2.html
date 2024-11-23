@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .top-container {
+        font-family: "Quicksand", sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .containerr {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+          rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+        max-width: 600px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .main-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      header {
+        margin-bottom: 20px;
+      }
+
+      main {
+        margin-bottom: 20px;
+      }
+
+      textarea {
+        width: calc(100% - 20px);
+        height: 120px;
+        margin-bottom: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 2px solid grey;
+        border-radius: 10px;
+        font-size: 16px;
+        outline: none;
+        background-color: #ecf0f1;
+        color: #333;
+      }
+
+      .label {
+        color: black;
+        font-weight: bold;
+        font-size: large;
+      }
+
+      button {
+        background-color: #e74c3c;
+        color: #fff;
+        padding: 15px 0px;
+        width: 170px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s ease;
+        margin: 5px;
+      }
+
+      button:hover {
+        background-color: #c0392b;
+      }
+
+      #copyBtn {
+        background-color: #2ecc71;
+      }
+
+      #copyBtn:hover {
+        background-color: #27ae60;
+      }
+
+      #clearBtn {
+        background-color: #3498db;
+      }
+
+      #clearBtn:hover {
+        background-color: #2980b9;
+      }
+
+      .result-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .result {
+        border: 1px solid;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #dcdedf;
+        width: 170px;
+        margin: 5px;
+      }
+
+      .count {
+        color: black;
+        font-weight: bold;
+      }
+
+      .buttonss {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* If the screen size is 600px wide or less, hide the element */
+      @media only screen and (max-width: 600px) {
+        .result-container {
+          display: flex;
+          flex-direction: column;
+          margin-top: 10px;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .result {
+          border: 1px solid;
+          padding: 10px 0px 10px 0px;
+          margin-bottom: 5px;
+          border-radius: 10px;
+          width: 80%;
+        }
+
+        .containerr {
+          border-radius: 0px;
+          padding: 0px;
+        }
+
+        button {
+          background-color: #e74c3c;
+          color: #fff;
+          padding: 20px 0px;
+          border: none;
+          border-radius: 10px;
+          cursor: pointer;
+          font-size: 12px;
+          transition: background 0.3s ease;
+        }
+
+        .main-container {
+          display: block;
+          border: 1px solid gray;
+          padding: 15px;
+          margin: 10px;
+          border-radius: 10px;
+          background-color: #f7f7f7;
+        }
+
+        textarea {
+          width: calc(100% - 20px);
+          height: 140px;
+          margin-bottom: 0px;
+        }
+      }
+    </style>
+    <title>Word Counter</title>
+  </head>
+  <body>
+    <div class="top-container">
+      <div class="containerr">
+        <header>
+          <h1>Word Counter</h1>
+        </header>
+        <main class="main-container">
+          <textarea
+            id="inputText"
+            placeholder="Type or paste your text here..."
+            oninput="countWords()"
+          ></textarea>
+          <div id="results" class="result-container">
+            <div class="result">
+              <span class="label">Words</span><br />
+              <span class="count" id="wordCount">0</span>
+            </div>
+            <div class="result">
+              <span class="label">Characters</span><br />
+              <span class="count" id="charCount">0</span>
+            </div>
+            <div class="result">
+              <span class="label">Lines</span><br />
+              <span class="count" id="lineCount">0</span>
+            </div>
+            <div class="result">
+              <span class="label">Sentences</span><br />
+              <span class="count" id="sentenceCount">0</span>
+            </div>
+            <div class="result">
+              <span class="label">Syllables</span><br />
+              <span class="count" id="syllableCount">0</span>
+            </div>
+            <div class="result">
+              <span class="label">Paragraphs</span><br />
+              <span class="count" id="paragraphCount">0</span>
+            </div>
+            <div class="result">
+              <span class="label">Reading Time</span><br />
+              <span class="count" id="readingTime">0 min</span>
+            </div>
+            <div class="result">
+              <span class="label">Speaking Time</span><br />
+              <span class="count" id="speakingTime">0 min</span>
+            </div>
+          </div>
+          <div class="buttonss">
+            <button id="copyBtn" onclick="copyToClipboard()">Copy</button>
+            <button id="clearBtn" onclick="clearText()">Clear</button>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script>
+      function countSyllables(word) {
+        word = word.toLowerCase();
+        if (word.length <= 3) return 1;
+        word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, "");
+        word = word.replace(/^y/, "");
+        var syllableMatch = word.match(/[aeiouy]{1,2}/g);
+        return syllableMatch ? syllableMatch.length : 1;
+      }
+
+      function countWords() {
+        var inputText = document.getElementById("inputText").value;
+        var words = inputText
+          .trim()
+          .split(/\s+/)
+          .filter((word) => word.length > 0).length;
+        var chars = inputText.length;
+        var lines = inputText.split(/\r\n|\r|\n/).length;
+        var sentences = inputText
+          .split(/[.!?]+\s*/)
+          .filter((sentence) => sentence.length > 0).length;
+        var syllables = inputText
+          .trim()
+          .split(/\s+/)
+          .reduce((total, word) => total + countSyllables(word), 0);
+        var paragraphs = inputText
+          .split(/\n{2,}/)
+          .filter((paragraph) => paragraph.trim().length > 0).length;
+        var readingTime = Math.ceil(words / 200);
+        var speakingTime = Math.ceil(words / 130);
+
+        document.getElementById("wordCount").innerText = words;
+        document.getElementById("charCount").innerText = chars;
+        document.getElementById("lineCount").innerText = lines;
+        document.getElementById("sentenceCount").innerText = sentences;
+        document.getElementById("syllableCount").innerText = syllables;
+        document.getElementById("paragraphCount").innerText = paragraphs;
+        document.getElementById("readingTime").innerText = readingTime + " min";
+        document.getElementById("speakingTime").innerText =
+          speakingTime + " min";
+      }
+
+      function copyToClipboard() {
+        var results = `
+        Words: ${document.getElementById("wordCount").innerText}
+        Characters: ${document.getElementById("charCount").innerText}
+        Lines: ${document.getElementById("lineCount").innerText}
+        Sentences: ${document.getElementById("sentenceCount").innerText}
+        Syllables: ${document.getElementById("syllableCount").innerText}
+        Paragraphs: ${document.getElementById("paragraphCount").innerText}
+        Reading Time: ${document.getElementById("readingTime").innerText}
+        Speaking Time: ${document.getElementById("speakingTime").innerText}
+      `;
+        navigator.clipboard.writeText(results);
+        alert("Results copied to clipboard! 📋");
+      }
+
+      function clearText() {
+        document.getElementById("inputText").value = "";
+        document.getElementById("wordCount").innerText = "0";
+        document.getElementById("charCount").innerText = "0";
+        document.getElementById("lineCount").innerText = "0";
+        document.getElementById("sentenceCount").innerText = "0";
+        document.getElementById("syllableCount").innerText = "0";
+        document.getElementById("paragraphCount").innerText = "0";
+        document.getElementById("readingTime").innerText = "0 min";
+        document.getElementById("speakingTime").innerText = "0 min";
+      }
+    </script>
+  </body>
+</html>
