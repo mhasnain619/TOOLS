@@ -10,6 +10,9 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;600;700&display=swap" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
+        integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .item {
             margin-left: 5px !important;
@@ -205,43 +208,58 @@
 
         .stars {
             position: relative;
-            display: inline-block;
+            display: flex;
+            gap: 3px;
         }
 
-        .last-star {
+        .tooltip-wrapper {
             position: relative;
+            display: inline-block;
+            margin-top: 2px;
         }
 
-        /* Tooltip styles */
-        .last-star::after {
-            content: attr(data-tooltip);
+        .tooltipdiv {
+            height: 16px;
+            width: 16px;
+        }
+
+        .tooltip-icon {
+            height: 100%;
+            width: 100%;
+        }
+
+        .tooltip {
+            display: block;
             position: absolute;
-            top: 20px;
-            /* Adjust positioning above the star */
-            left: 70px;
-            /* Center it horizontally */
-            transform: translateX(-50%) translateY(-10px);
-            /* Slight upward position */
+            top: 15px;
+            left: 80px;
+            transform: translateX(-50%) translateY(10px);
             background-color: #333;
             color: #fff;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 12px;
+            border-radius: 4px;
             font-size: 12px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            width: 100px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             opacity: 0;
             pointer-events: none;
-            width: 80px;
-            /* Adjust width as needed */
-            text-align: center;
             transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-            /* Smooth animation */
+            z-index: 10;
         }
 
-        /* Hover effect */
-        .last-star:hover::after {
+        /* Tooltip visible on hover */
+        .tooltip-wrapper:hover .tooltip {
             opacity: 1;
-            transform: translateX(-50%) translateY(-20px);
-            /* Slide upward for animation */
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        .testi .item {
+            position: relative;
+            /* Ensure parent container for tooltip has boundaries */
+            overflow: hidden;
+            /* Prevent overflow */
         }
     </style>
 
@@ -251,134 +269,7 @@
     <section class="testimonials">
         <div class="testimonial-container">
             <div class="owl-carousel owl-theme testi">
-                <!-- Testimonial 1 -->
-                <div class="item">
-                    <div class="profile">
-                        <img src="https://images.unsplash.com/photo-1542190891-2093d38760f2?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="" />
-                        <div class="information">
-                            <div>
-                                <p>Muhammad</p>
-                                <p class="monthsago">5 months ago</p>
-                            </div>
-                            <div>
-                                <img class="googleImg"
-                                    src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="review">
-                        Working with M-Zahid for SEO in Karachi has been a great experience - he's a friendly expert who
-                        seamlessly optimized our website for top Google rankings with his proven strategies and
-                        personable
-                        approach.
-                    </p>
 
-                </div>
-                <div class="item">
-                    <div class="profile">
-                        <img src="https://images.unsplash.com/photo-1521225099409-8e1efc95321d?ixlib=rb-1.2.1&auto=format&fit=crop&h=153&q=80"
-                            alt="" />
-                        <div class="information">
-                            <div>
-                                <p>Furkan Giray</p>
-                                <p class="monthsago">10 months ago</p>
-                            </div>
-                            <div>
-                                <img class="googleImg"
-                                    src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="review">
-                        Muhammad Zahid is a top-tier SEO expert who delivers outstanding results. His combination of
-                        technical expertise, strategic thinking, and excellent communication skills makes him an
-                        invaluable
-                        asset to any business looking to enhance its online presence.
-                    </p>
-
-                </div>
-                <!-- Testimonial 2 -->
-
-                <div class="item">
-                    <div class="profile">
-                        <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjZ8fHBha2lzdGFuaSUyMHByb2ZpbGUlMjBtYW58ZW58MHx8MHx8fDA%3D"
-                            alt="" />
-                        <div class="information">
-                            <div>
-                                <p>M Hasnain</p>
-                                <p class="monthsago">3 months ago</p>
-                            </div>
-                            <div>
-                                <img class="googleImg"
-                                    src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star dark"></i>
-                    </div>
-                    <p class="review">
-                        Highly recommend Muhammad Zahid for SEO services! His expertise significantly improved my
-                        website's
-                        search rankings. Muhammad's clear and consistent communication kept me informed throughout the
-                        process. He also offered valuable insights to enhance my website's user experience. If you need
-                        an
-                        SEO expert who delivers results, look no further than Muhammad Zahid!
-                    </p>
-
-                </div>
-                <div class="item">
-                    <div class="profile">
-                        <img src="https://plus.unsplash.com/premium_photo-1661637752177-e657a9daaf4f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                            alt="" />
-                        <div class="information">
-                            <div>
-                                <p>Zakirya Ali</p>
-                                <p class="monthsago">6 months ago</p>
-                            </div>
-                            <div>
-                                <img class="googleImg"
-                                    src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-                                    alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                    </div>
-                    <p class="review">
-                        He knew exactly how to get us to the top of Google searches. He's really friendly and easy to
-                        work
-                        with. If you need help with SEO in Karachi, M-Zahid is the best!
-                    </p>
-
-                </div>
                 <!-- Testimonial 3 -->
                 <div class="item">
                     <div class="profile">
@@ -397,19 +288,26 @@
                         </div>
                     </div>
                     <div class="stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star dark"></i>
-
                         <div>
-                            <i class="fa fa-star last-star"
-                                data-tooltip="M-Zahid for SEO in Karachi has been a great experience"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                        </div>
+                        <div class="tooltip-wrapper">
+                            <div class="tooltipdiv">
+                                <img src="https://static.vecteezy.com/system/resources/thumbnails/047/309/980/small_2x/verified-badge-profile-icon-png.png"
+                                    alt="Tooltip Icon" class="tooltip-icon">
+                            </div>
+                            <div class="tooltip">
+                                I am amazed by Zahid's ability to quickly diagnose SEO challenges.
+                            </div>
                         </div>
 
-
+                        <!-- <i class="fa fa-circle-check last-star tooltip"
+                            data-tooltip="I am amazed by Zahid's ability to quickly"></i> -->
                     </div>
+
                     <p class="review">
                         I am amazed by Zahid's ability to quickly diagnose and resolve SEO challenges. Thanks to him,
                         our
